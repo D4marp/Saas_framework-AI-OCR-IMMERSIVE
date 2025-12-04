@@ -8,4 +8,5 @@
 export 'models/exports.dart';
 export 'services/exports.dart';
 export 'utils/exports.dart';
+export 'widgets/exports.dart';
 export 'platform/ar_platform_service.dart';
