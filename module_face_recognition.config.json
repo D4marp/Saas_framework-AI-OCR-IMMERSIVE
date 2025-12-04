@@ -1,0 +1,132 @@
+{
+  "module": "face_recognition",
+  "version": "0.1.0",
+  "name": "Face Recognition Module",
+  "description": "Face detection, enrollment, and recognition with TensorFlow Lite support",
+  "platforms": {
+    "android": {
+      "enabled": true,
+      "minSdkVersion": 21,
+      "targetSdkVersion": 34,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "dependencies": [
+        "org.tensorflow:tensorflow-lite:2.13.0",
+        "org.tensorflow:tensorflow-lite-gpu:2.13.0",
+        "org.tensorflow:tensorflow-lite-support:0.4.4"
+      ],
+      "platformChannel": "com.saasframework/face_recognition",
+      "modelPath": "assets/models/android/"
+    },
+    "ios": {
+      "enabled": true,
+      "minDeploymentTarget": "12.0",
+      "permissions": [
+        "NSCameraUsageDescription",
+        "NSPhotoLibraryUsageDescription"
+      ],
+      "podDependencies": [
+        "TensorFlowLiteSwift",
+        "TensorFlowLiteSwiftGpuDelegate",
+        "TensorFlowLiteObjC"
+      ],
+      "platformChannel": "com.saasframework/face_recognition",
+      "modelPath": "assets/models/ios/"
+    },
+    "web": {
+      "enabled": true,
+      "browsers": ["chrome", "firefox", "safari", "edge"],
+      "cdnDependencies": [
+        {
+          "name": "TensorFlow.js",
+          "url": "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"
+        },
+        {
+          "name": "face-api.js",
+          "url": "https://cdn.jsdelivr.net/npm/face-api.js"
+        }
+      ],
+      "modelPath": "/assets/models/web/"
+    }
+  },
+  "models": {
+    "faceDetection": {
+      "name": "Face Detection Model",
+      "type": "object_detection",
+      "framework": "tensorflow_lite",
+      "inputSize": [320, 320],
+      "outputFormat": "bounding_boxes",
+      "supportedModels": [
+        "yolo_face",
+        "ssd_mobilenet",
+        "tiny_face_detector"
+      ],
+      "approximateSize": "30MB"
+    },
+    "faceRecognition": {
+      "name": "Face Recognition Model",
+      "type": "embedding",
+      "framework": "tensorflow_lite",
+      "inputSize": [112, 112],
+      "outputSize": 128,
+      "supportedModels": [
+        "facenet",
+        "arcface",
+        "cosface",
+        "mobilefacenet"
+      ],
+      "approximateSize": "30MB"
+    }
+  },
+  "features": {
+    "faceDetection": {
+      "enabled": true,
+      "description": "Detect faces in images"
+    },
+    "faceRecognition": {
+      "enabled": true,
+      "description": "Recognize and match faces"
+    },
+    "faceEnrollment": {
+      "enabled": true,
+      "description": "Enroll new faces"
+    },
+    "similarity": {
+      "enabled": true,
+      "description": "Calculate similarity between faces"
+    },
+    "livenessDetection": {
+      "enabled": false,
+      "description": "Detect if face is live (coming soon)"
+    }
+  },
+  "configuration": {
+    "defaultMatchThreshold": 0.6,
+    "defaultConfidenceThreshold": 0.5,
+    "embeddingDimension": 128,
+    "maxConcurrentOperations": 3,
+    "memoryOptimized": false,
+    "enableGPU": true,
+    "enableNNAPI": true
+  },
+  "assets": {
+    "models": {
+      "location": "assets/models/",
+      "format": "tflite",
+      "compression": "none"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "required": true,
+      "reason": "For capturing face images"
+    },
+    "storage": {
+      "required": false,
+      "reason": "For accessing gallery images"
+    }
+  }
+}
