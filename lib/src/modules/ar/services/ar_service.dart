@@ -13,6 +13,9 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import '../models/exports.dart';
 import '../platform/ar_platform_service.dart';
+import '../platform/android/android_ar_service.dart';
+import '../platform/ios/ios_ar_service.dart';
+import '../platform/web/web_ar_service.dart';
 
 /// Exception untuk AR operations
 class ARException implements Exception {
@@ -60,10 +63,13 @@ class ARService {
       // Platform detection dan initialization
       if (kIsWeb) {
         _platformService = WebARService();
+        print('[ARService] Using Web AR (WebXR)');
       } else if (Platform.isAndroid) {
-        _platformService = MobileARService(); // Will use ARCore
+        _platformService = AndroidARService();
+        print('[ARService] Using Android AR (ARCore)');
       } else if (Platform.isIOS) {
-        _platformService = MobileARService(); // Will use ARKit
+        _platformService = iOSARService();
+        print('[ARService] Using iOS AR (ARKit)');
       } else {
         throw ARException('Unsupported platform for AR');
       }

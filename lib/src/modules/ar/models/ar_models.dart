@@ -366,6 +366,27 @@ class ARSession {
     );
   }
 
+  /// Create a copy with modified fields
+  ARSession copyWith({
+    String? id,
+    ARSessionState? state,
+    DateTime? startedAt,
+    DateTime? updatedAt,
+    List<ARPlane>? detectedPlanes,
+    List<ARObject>? placedObjects,
+    String? error,
+  }) {
+    return ARSession(
+      id: id ?? this.id,
+      state: state ?? this.state,
+      startedAt: startedAt ?? this.startedAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      detectedPlanes: detectedPlanes ?? this.detectedPlanes,
+      placedObjects: placedObjects ?? this.placedObjects,
+      error: error ?? this.error,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'state': state.name,
